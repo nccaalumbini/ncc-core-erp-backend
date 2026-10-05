@@ -1,0 +1,26 @@
+# =========================================================
+# Render Blueprint for ncc-core-erp-backend
+# =========================================================
+# Deploys the Spring Boot API as a Docker service (Render has no native JVM
+# runtime). Secrets are marked sync:false and must be set in the Render
+# dashboard; they are never committed.
+services:
+  - type: web
+    name: ncc-core-erp-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      # JPA schema handling stays "validate" in prod; set explicitly for clarity.
+      - key: JPA_DDL_AUTO
+        value: validate
+      # Set these in the Render dashboard (sync:false = prompted, not stored in git).
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false

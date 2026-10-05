@@ -1,0 +1,14 @@
+# Keep the Docker build context small and free of secrets/artifacts.
+.git
+.gitignore
+.idea
+target
+*.iml
+.env
+.env.*
+README.md
+requirement.md
+HELP.md
+compose.yaml
+Dockerfile
+.dockerignore
